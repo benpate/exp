@@ -38,8 +38,7 @@ func (orExpression OrExpression) Or(name string, operator string, value interfac
 func (orExpression OrExpression) Match(fn MatcherFunc) bool {
 
 	for _, expression := range orExpression {
-
-		if expression.Match(fn) == true {
+		if expression.Match(fn) {
 			return true
 		}
 	}
