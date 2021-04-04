@@ -1,4 +1,4 @@
-package expression
+package exp
 
 // AndExpression combines a series of sub-expressions using AND logic
 type AndExpression []Expression

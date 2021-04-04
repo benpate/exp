@@ -1,4 +1,4 @@
-package expression
+package exp
 
 // OperatorGreaterThan represents an "greater than" comparison, when used in Predicates and Criteria
 const OperatorGreaterThan = ">"

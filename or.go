@@ -1,4 +1,4 @@
-package expression
+package exp
 
 // OrExpression compares a series of sub-expressions, using the OR logic
 type OrExpression []Expression

@@ -1,4 +1,4 @@
-package expression
+package exp
 
 // Predicate represents a single true/false comparison
 type Predicate struct {
