@@ -46,17 +46,22 @@ func GreaterOrEqual(field string, value interface{}) Predicate {
 	return New(field, OperatorGreaterOrEqual, value)
 }
 
-// Contains creates a new Predicate using an "Greater Or Equal" comparison
+// Contains creates a new Predicate using an "Contains" comparison
 func Contains(field string, value interface{}) Predicate {
 	return New(field, OperatorContains, value)
 }
 
-// BeginsWith creates a new Predicate using an "Greater Or Equal" comparison
+// ContainedBy creates a new Predicate using an "ContainedBy" comparison
+func ContainedBy(field string, value interface{}) Predicate {
+	return New(field, OperatorContainedBy, value)
+}
+
+// BeginsWith creates a new Predicate using an "BeginsWith" comparison
 func BeginsWith(field string, value interface{}) Predicate {
 	return New(field, OperatorBeginsWith, value)
 }
 
-// EndsWith creates a new Predicate using an "Greater Or Equal" comparison
+// EndsWith creates a new Predicate using an "EndsWith" comparison
 func EndsWith(field string, value interface{}) Predicate {
 	return New(field, OperatorEndsWith, value)
 }
