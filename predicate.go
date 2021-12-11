@@ -66,44 +66,56 @@ func EndsWith(field string, value interface{}) Predicate {
 	return New(field, OperatorEndsWith, value)
 }
 
-// And combines this predicate with another one (created from the arguments) into an AndExpression
-func (predicate Predicate) And(field string, operator string, value interface{}) AndExpression {
-	return AndExpression{predicate, New(field, operator, value)}
+// And combines this predicate with another pre-existing expression into a new And expression
+func (predicate Predicate) And(exp Expression) Expression {
+
+	// Skip EmptyExpressions
+	if _, ok := exp.(EmptyExpression); ok {
+		return predicate
+	}
+
+	return AndExpression{predicate, exp}
 }
 
 // AndEqual combines this predicate with another one (created from the arguments) into an AndExpression
-func (predicate Predicate) AndEqual(name string, value interface{}) AndExpression {
-	return predicate.And(name, OperatorEqual, value)
+func (predicate Predicate) AndEqual(name string, value interface{}) Expression {
+	return predicate.And(New(name, OperatorEqual, value))
 }
 
-// AndNotEqual combines this predicate with another one (created from the arguments) into an AndExpression
-func (predicate Predicate) AndNotEqual(name string, value interface{}) AndExpression {
-	return predicate.And(name, OperatorNotEqual, value)
+// AndNotEqual combines this predicate with another one (created from the arguments) into an Expression
+func (predicate Predicate) AndNotEqual(name string, value interface{}) Expression {
+	return predicate.And(New(name, OperatorNotEqual, value))
 }
 
-// AndLessThan combines this predicate with another one (created from the arguments) into an AndExpression
-func (predicate Predicate) AndLessThan(name string, value interface{}) AndExpression {
-	return predicate.And(name, OperatorLessThan, value)
+// AndLessThan combines this predicate with another one (created from the arguments) into an Expression
+func (predicate Predicate) AndLessThan(name string, value interface{}) Expression {
+	return predicate.And(New(name, OperatorLessThan, value))
 }
 
-// AndLessOrEqual combines this predicate with another one (created from the arguments) into an AndExpression
-func (predicate Predicate) AndLessOrEqual(name string, value interface{}) AndExpression {
-	return predicate.And(name, OperatorLessOrEqual, value)
+// AndLessOrEqual combines this predicate with another one (created from the arguments) into an Expression
+func (predicate Predicate) AndLessOrEqual(name string, value interface{}) Expression {
+	return predicate.And(New(name, OperatorLessOrEqual, value))
 }
 
-// AndGreaterThan combines this predicate with another one (created from the arguments) into an AndExpression
-func (predicate Predicate) AndGreaterThan(name string, value interface{}) AndExpression {
-	return predicate.And(name, OperatorGreaterThan, value)
+// AndGreaterThan combines this predicate with another one (created from the arguments) into an Expression
+func (predicate Predicate) AndGreaterThan(name string, value interface{}) Expression {
+	return predicate.And(New(name, OperatorGreaterThan, value))
 }
 
-// AndGreaterOrEqual combines this predicate with another one (created from the arguments) into an AndExpression
-func (predicate Predicate) AndGreaterOrEqual(name string, value interface{}) AndExpression {
-	return predicate.And(name, OperatorGreaterOrEqual, value)
+// AndGreaterOrEqual combines this predicate with another one (created from the arguments) into an Expression
+func (predicate Predicate) AndGreaterOrEqual(name string, value interface{}) Expression {
+	return predicate.And(New(name, OperatorGreaterOrEqual, value))
 }
 
-// Or combines this predicate with another one (created from the arguments) into an OrExpression
-func (predicate Predicate) Or(field string, operator string, value interface{}) OrExpression {
-	return OrExpression{predicate, New(field, operator, value)}
+// Or combines this predicate with another pre-existing expression into a new Or expression
+func (predicate Predicate) Or(exp Expression) Expression {
+
+	// Skip EmptyExpressions
+	if _, ok := exp.(EmptyExpression); ok {
+		return predicate
+	}
+
+	return OrExpression{predicate, exp}
 }
 
 // Match implements the Expression interface.  It uses a MatcherFunc to determine if this predicate matches an arbitrary dataset.

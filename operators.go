@@ -1,5 +1,7 @@
 package exp
 
+import "strings"
+
 // OperatorGreaterThan represents an "greater than" comparison, when used in Predicates and Criteria
 const OperatorGreaterThan = ">"
 
@@ -29,3 +31,45 @@ const OperatorContains = "CONTAINS"
 
 // OperatorContainedBy represents a "contained by" comparison, when used in Predicates and Criteria.  It is only valid for string values.
 const OperatorContainedBy = "CONTAINED BY"
+
+// Operator tries to convert non-standard values into standard operators
+func Operator(value string) string {
+
+	value = strings.ToUpper(value)
+
+	switch value {
+
+	case OperatorGreaterThan, "GT":
+		return OperatorGreaterThan
+
+	case OperatorGreaterOrEqual, "GE":
+		return OperatorGreaterOrEqual
+
+	case OperatorEqual, "EQ":
+		return OperatorEqual
+
+	case OperatorNotEqual, "NE":
+		return OperatorNotEqual
+
+	case OperatorLessOrEqual, "LE":
+		return OperatorLessOrEqual
+
+	case OperatorLessThan, "LT":
+		return OperatorLessThan
+
+	case OperatorBeginsWith:
+		return OperatorBeginsWith
+
+	case OperatorEndsWith:
+		return OperatorEndsWith
+
+	case OperatorContains:
+		return OperatorContains
+
+	case OperatorContainedBy:
+		return OperatorContainedBy
+
+	default:
+		return OperatorEqual
+	}
+}

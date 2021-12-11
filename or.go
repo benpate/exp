@@ -5,33 +5,32 @@ type OrExpression []Expression
 
 // Or combines one or more expression parameters into an OrExpression
 func Or(expressions ...Expression) OrExpression {
-
-	result := OrExpression{}
-
-	// Add each expression into our result one at a time.
-	for _, item := range expressions {
-		result = result.Add(item)
-	}
-
-	return result
-
+	return OrExpression(expressions)
 }
 
-// Add appends a new expression into this compound expression
-func (orExpression OrExpression) Add(exp Expression) OrExpression {
+// Or appends a new expression into this compound expression
+func (orExpression OrExpression) Or(exp Expression) Expression {
 
-	// If we're adding another OrExpression to this one, then we can simply concatenate its individual values
-	if exp, ok := exp.(OrExpression); ok {
-		return append(orExpression, exp...)
+	switch value := exp.(type) {
+	case EmptyExpression:
+		return orExpression
+	case OrExpression:
+		return append(orExpression, value...)
+	case Predicate:
+		return append(orExpression, value)
+	default:
+		return Or(orExpression, value)
 	}
-
-	// Fall through to here means that we need to group its sub-values into a single item
-	return append(orExpression, exp)
 }
 
-// Or appends an additional predicate into the OrExpression
-func (orExpression OrExpression) Or(name string, operator string, value interface{}) OrExpression {
-	return orExpression.Add(New(name, operator, value))
+// And returns a fully populated AndExpression
+func (orExpression OrExpression) And(exp Expression) Expression {
+
+	if _, ok := exp.(EmptyExpression); ok {
+		return orExpression
+	}
+
+	return And(orExpression, exp)
 }
 
 // Match implements the Expression interface.  It loops through all sub-expressions and returns TRUE if any of them match
