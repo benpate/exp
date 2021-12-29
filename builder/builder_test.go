@@ -1,11 +1,11 @@
 package builder
 
 import (
+	"fmt"
 	"net/url"
 	"testing"
 
 	"github.com/benpate/exp"
-	"github.com/davecgh/go-spew/spew"
 	"github.com/stretchr/testify/require"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
@@ -45,7 +45,7 @@ func TestBuilder(t *testing.T) {
 
 	{
 		u, _ := url.ParseQuery("publishDate=ge:123&parentId=123456781234567812345678")
-		spew.Dump(b.Evaluate(u))
+		fmt.Println(u)
 	}
 
 }
