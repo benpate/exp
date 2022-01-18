@@ -1,5 +1,13 @@
 # Expression Builder
 
+[![GoDoc](http://img.shields.io/badge/go-documentation-blue.svg?style=flat-square)](http://godoc.org/github.com/benpate/exp)
+[![Build Status](http://img.shields.io/travis/benpate/exp.svg?style=flat-square)](https://travis-ci.org/benpate/exp)
+[![Codecov](https://img.shields.io/codecov/c/github/benpate/exp.svg?style=flat-square)](https://codecov.io/gh/benpate/exp)
+[![Go Report Card](https://goreportcard.com/badge/github.com/benpate/exp?style=flat-square)](https://goreportcard.com/report/github.com/benpate/exp)
+![Version](https://img.shields.io/github/v/release/benpate/exp?include_prereleases&style=flat-square&color=brightgreen)
+
+## Intermediate Expression Formats for the Masses
+
 Every database has its own query language, so this library provides in intermediate format that should be easy to convert into whatever specific language you need to use.  
 
 The expression library only represents the structure of the logical expression, and does not include implementations for any data sources.  Those should be implemented in each individual data source adapter library.
