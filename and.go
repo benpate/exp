@@ -5,7 +5,15 @@ type AndExpression []Expression
 
 // And combines one or more expression parameters into an AndExpression
 func And(expressions ...Expression) AndExpression {
-	return AndExpression(expressions)
+
+	var result Expression
+	result = make(AndExpression, 0)
+
+	for _, expression := range expressions {
+		result = result.And(expression)
+	}
+
+	return result.(AndExpression)
 }
 
 func (andExpression AndExpression) And(exp Expression) Expression {

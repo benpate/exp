@@ -5,7 +5,15 @@ type OrExpression []Expression
 
 // Or combines one or more expression parameters into an OrExpression
 func Or(expressions ...Expression) OrExpression {
-	return OrExpression(expressions)
+
+	var result Expression
+	result = make(OrExpression, 0)
+
+	for _, expression := range expressions {
+		result = result.Or(expression)
+	}
+
+	return result.(OrExpression)
 }
 
 // Or appends a new expression into this compound expression
