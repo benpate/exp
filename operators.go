@@ -20,6 +20,9 @@ const OperatorLessOrEqual = "<="
 // OperatorLessThan represents a "less than" comparison, when used in Predicates and Criteria
 const OperatorLessThan = "<"
 
+// OperatorIn represents a "in" comparison, when used in Predicates and Criteria.
+const OperatorIn = "IN"
+
 // OperatorBeginsWith represents a "begins with" comparison, when used in Predicates and Criteria.  It is only valid for string values.
 const OperatorBeginsWith = "BEGINS"
 

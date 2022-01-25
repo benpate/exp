@@ -1,3 +1,6 @@
+// Package builder generates dynamic expressions based on a set of url.Values and a map of allowed fields.
+// It supports several different data types, along with a simple list of operators that can be applied to
+// each predicate.
 package builder
 
 import (

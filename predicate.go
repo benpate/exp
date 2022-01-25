@@ -46,6 +46,11 @@ func GreaterOrEqual(field string, value interface{}) Predicate {
 	return New(field, OperatorGreaterOrEqual, value)
 }
 
+// In creates a new Predicate using an "in" comparison
+func In(field string, value interface{}) Predicate {
+	return New(field, OperatorIn, value)
+}
+
 // Contains creates a new Predicate using an "Contains" comparison
 func Contains(field string, value interface{}) Predicate {
 	return New(field, OperatorContains, value)
