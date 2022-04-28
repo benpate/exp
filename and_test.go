@@ -3,7 +3,7 @@ package exp
 import (
 	"testing"
 
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 // This tests our ability to "collapse" AndExpressions into a single expression, which should keep
@@ -28,8 +28,21 @@ func TestAndExpression(t *testing.T) {
 		),
 	)
 
-	assert.Equal(t, "field0", exp[0].(Predicate).Field)
-	assert.Equal(t, "field1", exp[1].(Predicate).Field)
-	assert.Equal(t, "field2", exp[2].(Predicate).Field)
-	assert.Equal(t, "field3", exp[3].(Predicate).Field)
+	require.Equal(t, "field0", exp[0].(Predicate).Field)
+	require.Equal(t, "field1", exp[1].(Predicate).Field)
+	require.Equal(t, "field2", exp[2].(Predicate).Field)
+	require.Equal(t, "field3", exp[3].(Predicate).Field)
+}
+
+func TestAndEqual(t *testing.T) {
+
+	exp := Equal("field0", 0).AndEqual("field1", 1).AndEqual("field2", "2").AndEqual("field3", 3)
+
+	andExpression := exp.(AndExpression)
+	require.Equal(t, 4, len(andExpression))
+	require.Equal(t, "field0", andExpression[0].(Predicate).Field)
+	require.Equal(t, "field1", andExpression[1].(Predicate).Field)
+	require.Equal(t, "field2", andExpression[2].(Predicate).Field)
+	require.Equal(t, "field3", andExpression[3].(Predicate).Field)
+
 }

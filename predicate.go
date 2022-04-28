@@ -112,6 +112,16 @@ func (predicate Predicate) AndGreaterOrEqual(name string, value interface{}) Exp
 	return predicate.And(New(name, OperatorGreaterOrEqual, value))
 }
 
+// AndIn combines this predicate with another one (created from the arguments) into an Expression
+func (predicate Predicate) AndIn(name string, value interface{}) Expression {
+	return predicate.And(New(name, OperatorIn, value))
+}
+
+// AndNotIn combines this predicate with another one (created from the arguments) into an Expression
+func (predicate Predicate) AndNotIn(name string, value interface{}) Expression {
+	return predicate.And(New(name, OperatorNotIn, value))
+}
+
 // Or combines this predicate with another pre-existing expression into a new Or expression
 func (predicate Predicate) Or(exp Expression) Expression {
 

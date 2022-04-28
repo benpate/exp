@@ -23,6 +23,9 @@ const OperatorLessThan = "<"
 // OperatorIn represents a "in" comparison, when used in Predicates and Criteria.
 const OperatorIn = "IN"
 
+// OperatorNotIn represents a "not in" comparison, when used in Predicates and Criteria.
+const OperatorNotIn = "NOT IN"
+
 // OperatorBeginsWith represents a "begins with" comparison, when used in Predicates and Criteria.  It is only valid for string values.
 const OperatorBeginsWith = "BEGINS"
 
@@ -59,6 +62,12 @@ func Operator(value string) string {
 
 	case OperatorLessThan, "LT":
 		return OperatorLessThan
+
+	case OperatorIn:
+		return OperatorIn
+
+	case OperatorNotIn:
+		return OperatorNotIn
 
 	case OperatorBeginsWith:
 		return OperatorBeginsWith
