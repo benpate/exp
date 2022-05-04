@@ -5,7 +5,7 @@ go 1.17
 require (
 	github.com/benpate/list v0.4.2
 	github.com/stretchr/testify v1.7.1
-	go.mongodb.org/mongo-driver v1.9.0
+	go.mongodb.org/mongo-driver v1.9.1
 )
 
 require (
