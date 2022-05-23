@@ -1,6 +1,6 @@
 module github.com/benpate/exp
 
-go 1.17
+go 1.18
 
 require (
 	github.com/benpate/list v0.4.2
