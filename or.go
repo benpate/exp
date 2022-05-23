@@ -24,10 +24,8 @@ func (orExpression OrExpression) Or(exp Expression) Expression {
 		return orExpression
 	case OrExpression:
 		return append(orExpression, value...)
-	case Predicate:
-		return append(orExpression, value)
 	default:
-		return Or(orExpression, value)
+		return append(orExpression, value)
 	}
 }
 

@@ -23,10 +23,8 @@ func (andExpression AndExpression) And(exp Expression) Expression {
 		return andExpression
 	case AndExpression:
 		return append(andExpression, value...)
-	case Predicate:
-		return append(andExpression, value)
 	default:
-		return Or(andExpression, value)
+		return append(andExpression, value)
 	}
 }
 

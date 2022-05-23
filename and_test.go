@@ -3,6 +3,7 @@ package exp
 import (
 	"testing"
 
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
@@ -45,4 +46,25 @@ func TestAndEqual(t *testing.T) {
 	require.Equal(t, "field2", andExpression[2].(Predicate).Field)
 	require.Equal(t, "field3", andExpression[3].(Predicate).Field)
 
+}
+
+func TestAndExpression4(t *testing.T) {
+
+	exp := Equal("field0", 0).And(Equal("field1", 1)).And(Or(Equal("field2", 2), LessThan("field3", 3)))
+
+	assert.Equal(t, "field0", exp.(AndExpression)[0].(Predicate).Field)
+	assert.Equal(t, "=", exp.(AndExpression)[0].(Predicate).Operator)
+	assert.Equal(t, 0, exp.(AndExpression)[0].(Predicate).Value)
+
+	assert.Equal(t, "field1", exp.(AndExpression)[1].(Predicate).Field)
+	assert.Equal(t, "=", exp.(AndExpression)[1].(Predicate).Operator)
+	assert.Equal(t, 1, exp.(AndExpression)[1].(Predicate).Value)
+
+	assert.Equal(t, "field2", exp.(AndExpression)[2].(OrExpression)[0].(Predicate).Field)
+	assert.Equal(t, "=", exp.(AndExpression)[2].(OrExpression)[0].(Predicate).Operator)
+	assert.Equal(t, 2, exp.(AndExpression)[2].(OrExpression)[0].(Predicate).Value)
+
+	assert.Equal(t, "field3", exp.(AndExpression)[2].(OrExpression)[1].(Predicate).Field)
+	assert.Equal(t, "<", exp.(AndExpression)[2].(OrExpression)[1].(Predicate).Operator)
+	assert.Equal(t, 3, exp.(AndExpression)[2].(OrExpression)[1].(Predicate).Value)
 }
