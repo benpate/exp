@@ -35,6 +35,35 @@ func TestAndExpression(t *testing.T) {
 	require.Equal(t, "field3", exp[3].(Predicate).Field)
 }
 
+func TestAndEmpty(t *testing.T) {
+
+	{
+		exp := AndExpression{}.And(Empty())
+		require.Zero(t, len(exp.(AndExpression)))
+	}
+
+	{
+		exp := AndExpression{}.Or(Empty())
+		require.Zero(t, len(exp.(AndExpression)))
+	}
+
+	{
+		andExp := And(Predicate{
+			Field: "name",
+			Value: "John Connor",
+		})
+
+		require.Equal(t, 1, len(andExp))
+
+		orExp := andExp.Or(Predicate{
+			Field: "name",
+			Value: "Sarah Connor",
+		})
+
+		require.Equal(t, 2, len(orExp.(OrExpression)))
+	}
+}
+
 func TestAndEqual(t *testing.T) {
 
 	exp := Equal("field0", 0).AndEqual("field1", 1).AndEqual("field2", "2").AndEqual("field3", 3)
