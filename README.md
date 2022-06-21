@@ -1,4 +1,4 @@
-# Expression Builder
+# Expressions
 
 [![GoDoc](https://img.shields.io/badge/go-documentation-blue.svg?style=flat-square)](http://pkg.go.dev/github.com/benpate/exp)
 [![Build Status](https://img.shields.io/github/workflow/status/benpate/exp/Go/main)](https://github.com/benpate/exp/actions/workflows/go.yml)
