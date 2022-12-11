@@ -133,6 +133,46 @@ func (predicate Predicate) Or(exp Expression) Expression {
 	return OrExpression{predicate, exp}
 }
 
+// OrEqual combines this predicate with another one (created from the arguments) into an OrExpression
+func (predicate Predicate) OrEqual(name string, value interface{}) Expression {
+	return predicate.Or(New(name, OperatorEqual, value))
+}
+
+// OrNotEqual combines this predicate with another one (created from the arguments) into an Expression
+func (predicate Predicate) OrNotEqual(name string, value interface{}) Expression {
+	return predicate.Or(New(name, OperatorNotEqual, value))
+}
+
+// OrLessThan combines this predicate with another one (created from the arguments) into an Expression
+func (predicate Predicate) OrLessThan(name string, value interface{}) Expression {
+	return predicate.Or(New(name, OperatorLessThan, value))
+}
+
+// OrLessOrEqual combines this predicate with another one (created from the arguments) into an Expression
+func (predicate Predicate) OrLessOrEqual(name string, value interface{}) Expression {
+	return predicate.Or(New(name, OperatorLessOrEqual, value))
+}
+
+// OrGreaterThan combines this predicate with another one (created from the arguments) into an Expression
+func (predicate Predicate) OrGreaterThan(name string, value interface{}) Expression {
+	return predicate.Or(New(name, OperatorGreaterThan, value))
+}
+
+// OrGreaterOrEqual combines this predicate with another one (created from the arguments) into an Expression
+func (predicate Predicate) OrGreaterOrEqual(name string, value interface{}) Expression {
+	return predicate.Or(New(name, OperatorGreaterOrEqual, value))
+}
+
+// OrIn combines this predicate with another one (created from the arguments) into an Expression
+func (predicate Predicate) OrIn(name string, value interface{}) Expression {
+	return predicate.Or(New(name, OperatorIn, value))
+}
+
+// OrNotIn combines this predicate with another one (created from the arguments) into an Expression
+func (predicate Predicate) OrNotIn(name string, value interface{}) Expression {
+	return predicate.Or(New(name, OperatorNotIn, value))
+}
+
 // Match implements the Expression interface.  It uses a MatcherFunc to determine if this predicate matches an arbitrary dataset.
 func (predicate Predicate) Match(fn MatcherFunc) bool {
 	return fn(predicate)
