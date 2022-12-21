@@ -39,35 +39,35 @@ func (orExpression OrExpression) And(exp Expression) Expression {
 	return And(orExpression, exp)
 }
 
-func (orExpression OrExpression) AndEqual(name string, value interface{}) Expression {
+func (orExpression OrExpression) AndEqual(name string, value any) Expression {
 	return orExpression.And(New(name, OperatorEqual, value))
 }
 
-func (orExpression OrExpression) AndNotEqual(name string, value interface{}) Expression {
+func (orExpression OrExpression) AndNotEqual(name string, value any) Expression {
 	return orExpression.And(New(name, OperatorNotEqual, value))
 }
 
-func (orExpression OrExpression) AndLessThan(name string, value interface{}) Expression {
+func (orExpression OrExpression) AndLessThan(name string, value any) Expression {
 	return orExpression.And(New(name, OperatorLessThan, value))
 }
 
-func (orExpression OrExpression) AndLessOrEqual(name string, value interface{}) Expression {
+func (orExpression OrExpression) AndLessOrEqual(name string, value any) Expression {
 	return orExpression.And(New(name, OperatorLessOrEqual, value))
 }
 
-func (orExpression OrExpression) AndGreaterThan(name string, value interface{}) Expression {
+func (orExpression OrExpression) AndGreaterThan(name string, value any) Expression {
 	return orExpression.And(New(name, OperatorGreaterThan, value))
 }
 
-func (orExpression OrExpression) AndGreaterOrEqual(name string, value interface{}) Expression {
+func (orExpression OrExpression) AndGreaterOrEqual(name string, value any) Expression {
 	return orExpression.And(New(name, OperatorGreaterOrEqual, value))
 }
 
-func (orExpression OrExpression) AndIn(name string, value interface{}) Expression {
+func (orExpression OrExpression) AndIn(name string, value any) Expression {
 	return orExpression.And(New(name, OperatorIn, value))
 }
 
-func (orExpression OrExpression) AndNotIn(name string, value interface{}) Expression {
+func (orExpression OrExpression) AndNotIn(name string, value any) Expression {
 	return orExpression.And(New(name, OperatorNotIn, value))
 }
 

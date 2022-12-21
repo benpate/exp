@@ -36,35 +36,35 @@ func (andExpression AndExpression) Or(exp Expression) Expression {
 	return Or(andExpression, exp)
 }
 
-func (andExpression AndExpression) AndEqual(name string, value interface{}) Expression {
+func (andExpression AndExpression) AndEqual(name string, value any) Expression {
 	return andExpression.And(New(name, OperatorEqual, value))
 }
 
-func (andExpression AndExpression) AndNotEqual(name string, value interface{}) Expression {
+func (andExpression AndExpression) AndNotEqual(name string, value any) Expression {
 	return andExpression.And(New(name, OperatorNotEqual, value))
 }
 
-func (andExpression AndExpression) AndLessThan(name string, value interface{}) Expression {
+func (andExpression AndExpression) AndLessThan(name string, value any) Expression {
 	return andExpression.And(New(name, OperatorLessThan, value))
 }
 
-func (andExpression AndExpression) AndLessOrEqual(name string, value interface{}) Expression {
+func (andExpression AndExpression) AndLessOrEqual(name string, value any) Expression {
 	return andExpression.And(New(name, OperatorLessOrEqual, value))
 }
 
-func (andExpression AndExpression) AndGreaterThan(name string, value interface{}) Expression {
+func (andExpression AndExpression) AndGreaterThan(name string, value any) Expression {
 	return andExpression.And(New(name, OperatorGreaterThan, value))
 }
 
-func (andExpression AndExpression) AndGreaterOrEqual(name string, value interface{}) Expression {
+func (andExpression AndExpression) AndGreaterOrEqual(name string, value any) Expression {
 	return andExpression.And(New(name, OperatorGreaterOrEqual, value))
 }
 
-func (andExpression AndExpression) AndIn(name string, value interface{}) Expression {
+func (andExpression AndExpression) AndIn(name string, value any) Expression {
 	return andExpression.And(New(name, OperatorIn, value))
 }
 
-func (andExpression AndExpression) AndNotIn(name string, value interface{}) Expression {
+func (andExpression AndExpression) AndNotIn(name string, value any) Expression {
 	return andExpression.And(New(name, OperatorNotIn, value))
 }
 

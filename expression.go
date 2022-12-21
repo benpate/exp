@@ -12,26 +12,26 @@ type Expression interface {
 	Match(MatcherFunc) bool
 
 	// AndEqual is a shortcut that creates a new AndExpression using the Equal comparison
-	AndEqual(name string, value interface{}) Expression
+	AndEqual(name string, value any) Expression
 
 	// AndNotEqual is a shortcut that creates a new AndExpression using the NotEqual comparison
-	AndNotEqual(name string, value interface{}) Expression
+	AndNotEqual(name string, value any) Expression
 
 	// AndLessThan is a shortcut that creates a new AndExpression using the LessThan comparison
-	AndLessThan(name string, value interface{}) Expression
+	AndLessThan(name string, value any) Expression
 
 	// AndLessOrEqual is a shortcut that creates a new AndExpression using the LessOrEqual comparison
-	AndLessOrEqual(name string, value interface{}) Expression
+	AndLessOrEqual(name string, value any) Expression
 
 	// AndGreaterThan is a shortcut that creates a new AndExpression using the GreaterThan comparison
-	AndGreaterThan(name string, value interface{}) Expression
+	AndGreaterThan(name string, value any) Expression
 
 	// AndGreaterOrEqual is a shortcut that creates a new AndExpression using the GreaterOrEqual comparison
-	AndGreaterOrEqual(name string, value interface{}) Expression
+	AndGreaterOrEqual(name string, value any) Expression
 
 	// AndIn is a shortcut that creates a new AndExpression using the In comparison
-	AndIn(name string, value interface{}) Expression
+	AndIn(name string, value any) Expression
 
 	// AndNotIn is a shortcut that creates a new AndExpression using the NotIn comparison
-	AndNotIn(name string, value interface{}) Expression
+	AndNotIn(name string, value any) Expression
 }
