@@ -1,4 +1,4 @@
-# Expressions
+# Expressions 🤩
 
 [![GoDoc](https://img.shields.io/badge/go-documentation-blue.svg?style=flat-square)](http://pkg.go.dev/github.com/benpate/exp)
 [![Version](https://img.shields.io/github/v/release/benpate/exp?include_prereleases&style=flat-square&color=brightgreen)](https://github.com/benpate/exp/releases)
@@ -53,4 +53,4 @@ Each of the three interfaces above implements a `.Match()` function that can be 
 
 ## Pull Requests Welcome
 
-This library is a work in progress, and will benefit from your experience reports, use cases, and contributions.  If you have an idea for making this library better, send in a pull request.  We're all in this together! 📚
+This library is a work in progress, and will benefit from your experience reports, use cases, and contributions.  If you have an idea for making this library better, send in a pull request.  We're all in this together! 🤩
