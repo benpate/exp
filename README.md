@@ -1,10 +1,10 @@
 # Expressions
 
 [![GoDoc](https://img.shields.io/badge/go-documentation-blue.svg?style=flat-square)](http://pkg.go.dev/github.com/benpate/exp)
-[![Build Status](https://img.shields.io/github/actions/workflow/status/benpate/exp/go.yml?branch=main)](https://github.com/benpate/exp/actions/workflows/go.yml)
-[![Codecov](https://img.shields.io/codecov/c/github/benpate/exp.svg?style=flat-square)](https://codecov.io/gh/benpate/exp)
-[![Go Report Card](https://goreportcard.com/badge/github.com/benpate/exp?style=flat-square)](https://goreportcard.com/report/github.com/benpate/exp)
 [![Version](https://img.shields.io/github/v/release/benpate/exp?include_prereleases&style=flat-square&color=brightgreen)](https://github.com/benpate/exp/releases)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/benpate/exp/go.yml?branch=main)](https://github.com/benpate/exp/actions/workflows/go.yml)
+[![Go Report Card](https://goreportcard.com/badge/github.com/benpate/exp?style=flat-square)](https://goreportcard.com/report/github.com/benpate/exp)
+[![Codecov](https://img.shields.io/codecov/c/github/benpate/exp.svg?style=flat-square)](https://codecov.io/gh/benpate/exp)
 
 ## Intermediate Expression Formats for the Masses
 
