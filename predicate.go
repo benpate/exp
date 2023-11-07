@@ -177,3 +177,11 @@ func (predicate Predicate) OrNotIn(name string, value any) Expression {
 func (predicate Predicate) Match(fn MatcherFunc) bool {
 	return fn(predicate)
 }
+
+func (predicate Predicate) IsEmpty() bool {
+	return false
+}
+
+func (predicate Predicate) NotEmpty() bool {
+	return true
+}

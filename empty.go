@@ -49,3 +49,11 @@ func (e EmptyExpression) AndIn(name string, value any) Expression {
 func (e EmptyExpression) AndNotIn(name string, value any) Expression {
 	return e.And(New(name, OperatorNotIn, value))
 }
+
+func (e EmptyExpression) IsEmpty() bool {
+	return true
+}
+
+func (e EmptyExpression) NotEmpty() bool {
+	return false
+}

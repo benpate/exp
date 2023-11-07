@@ -3,6 +3,7 @@ package exp
 // Expression is an interface that is implemented by Predicates, AndExpressions, and OrExpressions.
 // It enables any of these items to be embedded into the criteria of a data.Query
 type Expression interface {
+
 	// And returns a new expression that combines this expression with another as an AndExpression
 	And(Expression) Expression
 
@@ -34,4 +35,10 @@ type Expression interface {
 
 	// AndNotIn is a shortcut that creates a new AndExpression using the NotIn comparison
 	AndNotIn(name string, value any) Expression
+
+	// IsEmpty returns TRUE if an expression does not have any predicates
+	IsEmpty() bool
+
+	// NotEmpty returns TRUE if an expression has one or more predicates
+	NotEmpty() bool
 }
