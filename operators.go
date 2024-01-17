@@ -38,50 +38,57 @@ const OperatorContains = "CONTAINS"
 // OperatorContainedBy represents a "contained by" comparison, when used in Predicates and Criteria.  It is only valid for string values.
 const OperatorContainedBy = "CONTAINED BY"
 
-// Operator tries to convert non-standard values into standard operators
 func Operator(value string) string {
+	result, _ := OperatorOk(value)
+	return result
+}
+
+// OperatorOk tries to convert non-standard values into standard operators.
+// If a match is found, then it returns the standardized value and TRUE.
+// If a match is not found, then the default EQUAL is returned along with a FALSE.
+func OperatorOk(value string) (string, bool) {
 
 	value = strings.ToUpper(value)
 
 	switch value {
 
 	case OperatorGreaterThan, "GT":
-		return OperatorGreaterThan
+		return OperatorGreaterThan, true
 
 	case OperatorGreaterOrEqual, "GE":
-		return OperatorGreaterOrEqual
+		return OperatorGreaterOrEqual, true
 
 	case OperatorEqual, "EQ":
-		return OperatorEqual
+		return OperatorEqual, true
 
 	case OperatorNotEqual, "NE":
-		return OperatorNotEqual
+		return OperatorNotEqual, true
 
 	case OperatorLessOrEqual, "LE":
-		return OperatorLessOrEqual
+		return OperatorLessOrEqual, true
 
 	case OperatorLessThan, "LT":
-		return OperatorLessThan
+		return OperatorLessThan, true
 
 	case OperatorIn:
-		return OperatorIn
+		return OperatorIn, true
 
 	case OperatorNotIn:
-		return OperatorNotIn
+		return OperatorNotIn, true
 
 	case OperatorBeginsWith:
-		return OperatorBeginsWith
+		return OperatorBeginsWith, true
 
 	case OperatorEndsWith:
-		return OperatorEndsWith
+		return OperatorEndsWith, true
 
 	case OperatorContains:
-		return OperatorContains
+		return OperatorContains, true
 
 	case OperatorContainedBy:
-		return OperatorContainedBy
+		return OperatorContainedBy, true
 
 	default:
-		return OperatorEqual
+		return OperatorEqual, false
 	}
 }
