@@ -52,7 +52,7 @@ func OperatorOk(value string) (string, bool) {
 
 	switch value {
 
-	case OperatorGreaterThan, "GT":
+	case OperatorGreaterThan, "GTE", "GT":
 		return OperatorGreaterThan, true
 
 	case OperatorGreaterOrEqual, "GE":
@@ -61,10 +61,10 @@ func OperatorOk(value string) (string, bool) {
 	case OperatorEqual, "EQ":
 		return OperatorEqual, true
 
-	case OperatorNotEqual, "NE":
+	case OperatorNotEqual, "NEQ", "NE":
 		return OperatorNotEqual, true
 
-	case OperatorLessOrEqual, "LE":
+	case OperatorLessOrEqual, "LTE", "LE":
 		return OperatorLessOrEqual, true
 
 	case OperatorLessThan, "LT":
