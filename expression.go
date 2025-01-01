@@ -36,6 +36,9 @@ type Expression interface {
 	// AndNotIn is a shortcut that creates a new AndExpression using the NotIn comparison
 	AndNotIn(name string, value any) Expression
 
+	// AndInAll is a shortcut that creates a new AndExpression using the InAll comparison
+	AndInAll(name string, value ...any) Expression
+
 	// IsEmpty returns TRUE if an expression does not have any predicates
 	IsEmpty() bool
 

@@ -20,6 +20,9 @@ const OperatorLessOrEqual = "<="
 // OperatorLessThan represents a "less than" comparison, when used in Predicates and Criteria
 const OperatorLessThan = "<"
 
+// OperatorInAll represents an "in all" comparison, when used in Predicates and Criteria.
+const OperatorInAll = "IN ALL"
+
 // OperatorIn represents a "in" comparison, when used in Predicates and Criteria.
 const OperatorIn = "IN"
 

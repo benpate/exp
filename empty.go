@@ -50,6 +50,10 @@ func (e EmptyExpression) AndNotIn(name string, value any) Expression {
 	return e.And(New(name, OperatorNotIn, value))
 }
 
+func (e EmptyExpression) AndInAll(name string, value ...any) Expression {
+	return e.And(New(name, OperatorInAll, value))
+}
+
 func (e EmptyExpression) IsEmpty() bool {
 	return true
 }

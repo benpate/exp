@@ -51,6 +51,16 @@ func In(field string, value any) Predicate {
 	return New(field, OperatorIn, value)
 }
 
+// NotIn creates a new Predicate using an "in" comparison
+func NotIn(field string, value any) Predicate {
+	return New(field, OperatorNotIn, value)
+}
+
+// InAll creates a new Predicate using an "in" comparison
+func InAll(field string, value ...any) Predicate {
+	return New(field, OperatorInAll, value)
+}
+
 // Contains creates a new Predicate using an "Contains" comparison
 func Contains(field string, value any) Predicate {
 	return New(field, OperatorContains, value)
@@ -122,6 +132,11 @@ func (predicate Predicate) AndNotIn(name string, value any) Expression {
 	return predicate.And(New(name, OperatorNotIn, value))
 }
 
+// AndInAll combines this predicate with another one (created from the arguments) into an Expression
+func (predicate Predicate) AndInAll(name string, value ...any) Expression {
+	return predicate.And(New(name, OperatorInAll, value))
+}
+
 // Or combines this predicate with another pre-existing expression into a new Or expression
 func (predicate Predicate) Or(exp Expression) Expression {
 
@@ -171,6 +186,11 @@ func (predicate Predicate) OrIn(name string, value any) Expression {
 // OrNotIn combines this predicate with another one (created from the arguments) into an Expression
 func (predicate Predicate) OrNotIn(name string, value any) Expression {
 	return predicate.Or(New(name, OperatorNotIn, value))
+}
+
+// OrInAll combines this predicate with another one (created from the arguments) into an Expression
+func (predicate Predicate) OrInAll(name string, value any) Expression {
+	return predicate.Or(New(name, OperatorInAll, value))
 }
 
 // Match implements the Expression interface.  It uses a MatcherFunc to determine if this predicate matches an arbitrary dataset.

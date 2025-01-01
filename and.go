@@ -60,6 +60,10 @@ func (e AndExpression) AndGreaterOrEqual(name string, value any) Expression {
 	return e.And(New(name, OperatorGreaterOrEqual, value))
 }
 
+func (e AndExpression) AndInAll(field string, values ...any) Expression {
+	return e.And(New(field, OperatorInAll, values))
+}
+
 func (e AndExpression) AndIn(name string, value any) Expression {
 	return e.And(New(name, OperatorIn, value))
 }

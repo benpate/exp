@@ -71,6 +71,10 @@ func (e OrExpression) AndNotIn(name string, value any) Expression {
 	return e.And(New(name, OperatorNotIn, value))
 }
 
+func (e OrExpression) AndInAll(field string, values ...any) Expression {
+	return e.And(New(field, OperatorInAll, values))
+}
+
 // Match implements the Expression interface.  It loops through all sub-expressions and returns TRUE if any of them match
 func (e OrExpression) Match(fn MatcherFunc) bool {
 
