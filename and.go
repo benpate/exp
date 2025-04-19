@@ -92,3 +92,13 @@ func (e AndExpression) IsEmpty() bool {
 func (e AndExpression) NotEmpty() bool {
 	return len(e) > 0
 }
+
+func (e AndExpression) Fields() []string {
+	fields := make([]string, 0)
+
+	for _, expression := range e {
+		fields = append(fields, expression.Fields()...)
+	}
+
+	return fields
+}

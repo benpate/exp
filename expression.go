@@ -44,4 +44,7 @@ type Expression interface {
 
 	// NotEmpty returns TRUE if an expression has one or more predicates
 	NotEmpty() bool
+
+	// Fields returns the list of fields that are used in this expression
+	Fields() []string
 }

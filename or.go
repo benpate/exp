@@ -94,3 +94,13 @@ func (e OrExpression) IsEmpty() bool {
 func (e OrExpression) NotEmpty() bool {
 	return len(e) > 0
 }
+
+func (e OrExpression) Fields() []string {
+	var result []string
+
+	for _, expression := range e {
+		result = append(result, expression.Fields()...)
+	}
+
+	return result
+}

@@ -61,3 +61,7 @@ func (e EmptyExpression) IsEmpty() bool {
 func (e EmptyExpression) NotEmpty() bool {
 	return false
 }
+
+func (e EmptyExpression) Fields() []string {
+	return make([]string, 0)
+}

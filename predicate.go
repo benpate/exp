@@ -205,3 +205,7 @@ func (predicate Predicate) IsEmpty() bool {
 func (predicate Predicate) NotEmpty() bool {
 	return true
 }
+
+func (predicate Predicate) Fields() []string {
+	return []string{predicate.Field}
+}
