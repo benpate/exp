@@ -6,7 +6,7 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/benpate/exp?style=flat-square)](https://goreportcard.com/report/github.com/benpate/exp)
 [![Codecov](https://img.shields.io/codecov/c/github/benpate/exp.svg?style=flat-square)](https://codecov.io/gh/benpate/exp)
 
-## Intermediate Expression Formats for the Masses
+## Easy Expression Builder for Golang
 
 Every database has its own query language, so this library provides in intermediate format that should be easy to convert into whatever specific language you need to use.  
 
