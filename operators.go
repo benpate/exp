@@ -41,8 +41,14 @@ const OperatorContains = "CONTAINS"
 // OperatorContainedBy represents a "contained by" comparison, when used in Predicates and Criteria.  It is only valid for string values.
 const OperatorContainedBy = "CONTAINED BY"
 
-// OperatorInPolygon represents a geographic search within a polygon of coordinates
-const OperatorInPolygon = "IN-POLYGON"
+// OperatorExists represents an "exists" comparison, which should return TRUE if the provided field exists.
+const OperatorExists = "EXISTS"
+
+// OperatorGeoWithin represents a geometric search within a given shape.
+const OperatorGeoWithin = "GEO-WITHIN"
+
+// OperatorGeoIntersects represents a geometric search that intersects with a given shape
+const OperatorGeoIntersects = "GEO-INTERSECTS"
 
 func Operator(value string) string {
 	result, _ := OperatorOk(value)
@@ -94,8 +100,14 @@ func OperatorOk(value string) (string, bool) {
 	case OperatorContainedBy:
 		return OperatorContainedBy, true
 
-	case OperatorInPolygon:
-		return OperatorInPolygon, true
+	case OperatorExists:
+		return OperatorExists, true
+
+	case OperatorGeoWithin:
+		return OperatorGeoWithin, true
+
+	case OperatorGeoIntersects:
+		return OperatorGeoIntersects, true
 
 	default:
 		return OperatorEqual, false

@@ -81,6 +81,26 @@ func EndsWith(field string, value any) Predicate {
 	return New(field, OperatorEndsWith, value)
 }
 
+// Exists creates a new Predicate using an "Exists:true" comparison
+func Exists(field string) Predicate {
+	return New(field, OperatorExists, true)
+}
+
+// NotExists creates a new Predicate using an "Exists:false" comparison
+func NotExists(field string) Predicate {
+	return New(field, OperatorExists, false)
+}
+
+// GeoWithin creates a new Predicate that searches geometric data WITHIN a particular shape
+func GeoWithin(field string, geoJSONer GeoJSONer) Predicate {
+	return New(field, OperatorGeoWithin, geoJSONer.GeoJSON())
+}
+
+// GeoIntersects cratea a new Predicate that searches geomtric data that INTERSECTS a particular shape
+func GeoIntersects(field string, geoJSONer GeoJSONer) Predicate {
+	return New(field, OperatorGeoIntersects, geoJSONer.GeoJSON())
+}
+
 // And combines this predicate with another pre-existing expression into a new And expression
 func (predicate Predicate) And(exp Expression) Expression {
 
