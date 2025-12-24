@@ -50,6 +50,7 @@ const OperatorGeoWithin = "GEO-WITHIN"
 // OperatorGeoIntersects represents a geometric search that intersects with a given shape
 const OperatorGeoIntersects = "GEO-INTERSECTS"
 
+// Operator tries to convert non-standard values into standard operators.
 func Operator(value string) string {
 	result, _ := OperatorOk(value)
 	return result

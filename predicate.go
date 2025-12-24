@@ -218,14 +218,20 @@ func (predicate Predicate) Match(fn MatcherFunc) bool {
 	return fn(predicate)
 }
 
+// IsEmpty is a part of the Expression interface.
+// It always returns FALSE for a Predicate, since a Predicate is never empty.
 func (predicate Predicate) IsEmpty() bool {
 	return false
 }
 
+// NotEmpty is a part of the Expression interface.
+// It always returns TRUE for a Predicate, since a Predicate is never empty.
 func (predicate Predicate) NotEmpty() bool {
 	return true
 }
 
+// Fields is a part of the Expression interface.
+// It returns a slice of field names that are used in this expression.
 func (predicate Predicate) Fields() []string {
 	return []string{predicate.Field}
 }
