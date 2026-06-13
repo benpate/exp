@@ -96,7 +96,7 @@ func GeoWithin(field string, geoJSONer GeoJSONer) Predicate {
 	return New(field, OperatorGeoWithin, geoJSONer.GeoJSON())
 }
 
-// GeoIntersects cratea a new Predicate that searches geomtric data that INTERSECTS a particular shape
+// GeoIntersects creates a new Predicate that searches geometric data that INTERSECTS a particular shape
 func GeoIntersects(field string, geoJSONer GeoJSONer) Predicate {
 	return New(field, OperatorGeoIntersects, geoJSONer.GeoJSON())
 }
