@@ -89,6 +89,9 @@ func OperatorOk(value string) (string, bool) {
 	case OperatorNotIn:
 		return OperatorNotIn, true
 
+	case OperatorInAll:
+		return OperatorInAll, true
+
 	case OperatorBeginsWith:
 		return OperatorBeginsWith, true
 
