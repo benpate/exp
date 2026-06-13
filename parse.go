@@ -9,45 +9,28 @@ import (
 // returns an EmptyExpression instead of panicking.
 func Parse(value string) Expression {
 
-	field, rest, ok := strings.Cut(value, " ")
+	// Extract the field
+	field, tail, ok := strings.Cut(value, " ")
 	if !ok {
 		return Empty()
 	}
 
-	operator, val, ok := strings.Cut(rest, " ")
+	// Split the operator and value
+	operator, value, ok := strings.Cut(tail, " ")
 	if !ok {
 		return Empty()
 	}
 
+	// Parse the operator into a recognized token
+	operator, ok = OperatorOk(operator)
+	if !ok {
+		return Empty()
+	}
+
+	// Success
 	return Predicate{
 		Field:    field,
-		Operator: parseOperator(operator),
-		Value:    val,
-	}
-}
-
-func parseOperator(value string) string {
-	switch value {
-
-	case "eq", "is", "&equals;", "=", "==":
-		return OperatorEqual
-
-	case "ne", "&ne;", "!=":
-		return OperatorNotEqual
-
-	case "gt", "&gt;", ">":
-		return OperatorGreaterThan
-
-	case "lt", "&lt;", "<":
-		return OperatorLessThan
-
-	case "ge", "&ge;", ">=":
-		return OperatorGreaterOrEqual
-
-	case "le", "&le;", "<=":
-		return OperatorLessOrEqual
-
-	default:
-		return ""
+		Operator: operator,
+		Value:    value,
 	}
 }

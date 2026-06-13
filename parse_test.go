@@ -89,11 +89,9 @@ func TestParseExpression(t *testing.T) {
 	}
 
 	{
+		// An unrecognized operator yields an EmptyExpression.
 		expression := Parse("foo derp bar")
-		predicate := expression.(Predicate)
-		require.Equal(t, "foo", predicate.Field)
-		require.Equal(t, "", predicate.Operator)
-		require.Equal(t, "bar", predicate.Value)
+		require.IsType(t, EmptyExpression{}, expression)
 	}
 }
 
