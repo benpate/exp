@@ -96,3 +96,58 @@ func TestParseExpression(t *testing.T) {
 		require.Equal(t, "bar", predicate.Value)
 	}
 }
+
+// TestParseMalformed confirms that malformed input returns an EmptyExpression
+// instead of panicking.
+func TestParseMalformed(t *testing.T) {
+
+	for _, input := range []string{"", "foo", "foo eq", "foobar"} {
+		require.NotPanics(t, func() { Parse(input) }, "input: %q", input)
+		require.IsType(t, EmptyExpression{}, Parse(input), "input: %q", input)
+	}
+}
+
+// FuzzParse confirms that Parse never panics and always returns a usable
+// Expression for arbitrary input.
+func FuzzParse(f *testing.F) {
+
+	for _, seed := range []string{
+		"",
+		" ",
+		"  ",
+		"foo",
+		"foo eq",
+		"foo eq bar",
+		"foo == bar baz",
+		"foo &gt; bar",
+		"foo derp bar",
+	} {
+		f.Add(seed)
+	}
+
+	f.Fuzz(func(t *testing.T, input string) {
+
+		expression := Parse(input)
+		require.NotNil(t, expression)
+
+		// Whatever comes back must satisfy the Expression contract without panicking.
+		require.NotPanics(t, func() {
+			expression.IsEmpty()
+			expression.NotEmpty()
+			expression.Fields()
+			expression.Match(func(Predicate) bool { return true })
+		})
+
+		// A successfully parsed predicate must round-trip its field and value out of
+		// the original input; anything else must collapse to an EmptyExpression.
+		switch value := expression.(type) {
+		case Predicate:
+			require.Contains(t, input, value.Field)
+			require.Contains(t, input, value.Value.(string))
+		case EmptyExpression:
+			// acceptable result for malformed input
+		default:
+			t.Fatalf("unexpected expression type %T for input %q", value, input)
+		}
+	})
+}

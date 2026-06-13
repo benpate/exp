@@ -4,38 +4,49 @@ import (
 	"strings"
 )
 
-// Parse converts a string into an Expression
+// Parse converts a "field operator value" string into an Expression.
+// Malformed input that does not contain both a field and an operator
+// returns an EmptyExpression instead of panicking.
 func Parse(value string) Expression {
 
-	// TODO: LOW: This expression parser is too simple and brittle.  It should be expanded to support more complex expressions, and should better support malformed expressions.
+	field, rest, ok := strings.Cut(value, " ")
+	if !ok {
+		return Empty()
+	}
 
-	result := Predicate{}
+	operator, val, ok := strings.Cut(rest, " ")
+	if !ok {
+		return Empty()
+	}
 
-	space := strings.IndexByte(value, ' ')
-	result.Field = value[:space]
-	value = value[space+1:]
-
-	space = strings.IndexByte(value, ' ')
-	result.Operator = parseOperator(value[:space])
-	result.Value = value[space+1:]
-
-	return result
+	return Predicate{
+		Field:    field,
+		Operator: parseOperator(operator),
+		Value:    val,
+	}
 }
 
 func parseOperator(value string) string {
 	switch value {
+
 	case "eq", "is", "&equals;", "=", "==":
 		return OperatorEqual
+
 	case "ne", "&ne;", "!=":
 		return OperatorNotEqual
+
 	case "gt", "&gt;", ">":
 		return OperatorGreaterThan
+
 	case "lt", "&lt;", "<":
 		return OperatorLessThan
+
 	case "ge", "&ge;", ">=":
 		return OperatorGreaterOrEqual
+
 	case "le", "&le;", "<=":
 		return OperatorLessOrEqual
+
 	default:
 		return ""
 	}
