@@ -76,3 +76,12 @@ type Expression interface {
 	// Fields returns the list of fields that are used in this expression
 	Fields() []string
 }
+
+// Compile-time guarantees that every concrete type implements Expression, so
+// interface drift fails at build time instead of at first use.
+var (
+	_ Expression = Predicate{}
+	_ Expression = AndExpression{}
+	_ Expression = OrExpression{}
+	_ Expression = EmptyExpression{}
+)
