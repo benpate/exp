@@ -29,109 +29,109 @@ func (e EmptyExpression) Match(_ MatcherFunc) bool {
 // AndEqual is a part of the Expression interface.
 // It creates a new AndExpression using the Equal comparison
 func (e EmptyExpression) AndEqual(name string, value any) Expression {
-	return e.And(New(name, OperatorEqual, value))
+	return New(name, OperatorEqual, value)
 }
 
 // AndNotEqual is a part of the Expression interface.
 // It creates a new AndExpression using the NotEqual comparison
 func (e EmptyExpression) AndNotEqual(name string, value any) Expression {
-	return e.And(New(name, OperatorNotEqual, value))
+	return New(name, OperatorNotEqual, value)
 }
 
 // AndLessThan is a part of the Expression interface.
 // It creates a new AndExpression using the LessThan comparison
 func (e EmptyExpression) AndLessThan(name string, value any) Expression {
-	return e.And(New(name, OperatorLessThan, value))
+	return New(name, OperatorLessThan, value)
 }
 
 // AndLessOrEqual is a part of the Expression interface.
 // It creates a new AndExpression using the LessOrEqual comparison
 func (e EmptyExpression) AndLessOrEqual(name string, value any) Expression {
-	return e.And(New(name, OperatorLessOrEqual, value))
+	return New(name, OperatorLessOrEqual, value)
 }
 
 // AndGreaterThan is a part of the Expression interface.
 // It creates a new AndExpression using the GreaterThan comparison
 func (e EmptyExpression) AndGreaterThan(name string, value any) Expression {
-	return e.And(New(name, OperatorGreaterThan, value))
+	return New(name, OperatorGreaterThan, value)
 }
 
 // AndGreaterOrEqual is a part of the Expression interface.
 // It creates a new AndExpression using the GreaterOrEqual comparison
 func (e EmptyExpression) AndGreaterOrEqual(name string, value any) Expression {
-	return e.And(New(name, OperatorGreaterOrEqual, value))
+	return New(name, OperatorGreaterOrEqual, value)
 }
 
 // AndIn is a part of the Expression interface.
 // It creates a new AndExpression using the In comparison
 func (e EmptyExpression) AndIn(name string, value any) Expression {
-	return e.And(New(name, OperatorIn, value))
+	return New(name, OperatorIn, value)
 }
 
 // AndNotIn is a part of the Expression interface.
 // It creates a new AndExpression using the NotIn comparison
 func (e EmptyExpression) AndNotIn(name string, value any) Expression {
-	return e.And(New(name, OperatorNotIn, value))
+	return New(name, OperatorNotIn, value)
 }
 
 // AndInAll is a part of the Expression interface.
 // It creates a new AndExpression using the InAll comparison
 func (e EmptyExpression) AndInAll(name string, value ...any) Expression {
-	return e.And(New(name, OperatorInAll, value))
+	return New(name, OperatorInAll, value)
 }
 
 // OrEqual is a part of the Expression interface.
 // It creates a new OrExpression using the Equal comparison
 func (e EmptyExpression) OrEqual(name string, value any) Expression {
-	return e.Or(New(name, OperatorEqual, value))
+	return New(name, OperatorEqual, value)
 }
 
 // OrNotEqual is a part of the Expression interface.
 // It creates a new OrExpression using the NotEqual comparison
 func (e EmptyExpression) OrNotEqual(name string, value any) Expression {
-	return e.Or(New(name, OperatorNotEqual, value))
+	return New(name, OperatorNotEqual, value)
 }
 
 // OrLessThan is a part of the Expression interface.
 // It creates a new OrExpression using the LessThan comparison
 func (e EmptyExpression) OrLessThan(name string, value any) Expression {
-	return e.Or(New(name, OperatorLessThan, value))
+	return New(name, OperatorLessThan, value)
 }
 
 // OrLessOrEqual is a part of the Expression interface.
 // It creates a new OrExpression using the LessOrEqual comparison
 func (e EmptyExpression) OrLessOrEqual(name string, value any) Expression {
-	return e.Or(New(name, OperatorLessOrEqual, value))
+	return New(name, OperatorLessOrEqual, value)
 }
 
 // OrGreaterThan is a part of the Expression interface.
 // It creates a new OrExpression using the GreaterThan comparison
 func (e EmptyExpression) OrGreaterThan(name string, value any) Expression {
-	return e.Or(New(name, OperatorGreaterThan, value))
+	return New(name, OperatorGreaterThan, value)
 }
 
 // OrGreaterOrEqual is a part of the Expression interface.
 // It creates a new OrExpression using the GreaterOrEqual comparison
 func (e EmptyExpression) OrGreaterOrEqual(name string, value any) Expression {
-	return e.Or(New(name, OperatorGreaterOrEqual, value))
+	return New(name, OperatorGreaterOrEqual, value)
 }
 
 // OrIn is a part of the Expression interface.
 // It creates a new OrExpression using the In comparison
 func (e EmptyExpression) OrIn(name string, value any) Expression {
-	return e.Or(New(name, OperatorIn, value))
+	return New(name, OperatorIn, value)
 }
 
 // OrNotIn is a part of the Expression interface.
 // It creates a new OrExpression using the NotIn comparison
 func (e EmptyExpression) OrNotIn(name string, value any) Expression {
-	return e.Or(New(name, OperatorNotIn, value))
+	return New(name, OperatorNotIn, value)
 }
 
 // OrInAll is a part of the Expression interface.
 // It creates a new OrExpression using the InAll comparison
 func (e EmptyExpression) OrInAll(name string, value ...any) Expression {
-	return e.Or(New(name, OperatorInAll, value))
+	return New(name, OperatorInAll, value)
 }
 
 // IsEmpty is a part of the Expression interface.
