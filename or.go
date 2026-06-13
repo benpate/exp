@@ -20,13 +20,15 @@ func Or(expressions ...Expression) OrExpression {
 // It combines another expression into a new OrExpression
 func (e OrExpression) Or(exp Expression) Expression {
 
+	// Cap the receiver to its length so append always allocates a new backing
+	// array, preventing two derived expressions from clobbering shared capacity.
 	switch value := exp.(type) {
 	case EmptyExpression:
 		return e
 	case OrExpression:
-		return append(e, value...)
+		return append(e[:len(e):len(e)], value...)
 	default:
-		return append(e, value)
+		return append(e[:len(e):len(e)], value)
 	}
 }
 

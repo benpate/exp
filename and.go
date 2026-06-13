@@ -20,13 +20,15 @@ func And(expressions ...Expression) AndExpression {
 // It combines another expression into a new AndExpression
 func (e AndExpression) And(exp Expression) Expression {
 
+	// Cap the receiver to its length so append always allocates a new backing
+	// array, preventing two derived expressions from clobbering shared capacity.
 	switch value := exp.(type) {
 	case EmptyExpression:
 		return e
 	case AndExpression:
-		return append(e, value...)
+		return append(e[:len(e):len(e)], value...)
 	default:
-		return append(e, value)
+		return append(e[:len(e):len(e)], value)
 	}
 }
 

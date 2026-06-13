@@ -35,6 +35,33 @@ func TestAndExpression(t *testing.T) {
 	require.Equal(t, "field3", exp[3].(Predicate).Field)
 }
 
+// TestAndNoAliasing confirms that deriving two expressions from a shared base
+// does not let one clobber the other through a shared backing array.
+func TestAndNoAliasing(t *testing.T) {
+
+	// Three predicates yields len 3, cap 4 (via append doubling), so the base
+	// has spare capacity that append would otherwise reuse.
+	base := And(Equal("a", 1), Equal("b", 2), Equal("c", 3))
+
+	x := base.And(Equal("X", 9)).(AndExpression)
+	y := base.And(Equal("Y", 8)).(AndExpression)
+
+	require.Equal(t, "X", x[3].(Predicate).Field)
+	require.Equal(t, "Y", y[3].(Predicate).Field)
+}
+
+// TestOrNoAliasing confirms the same independence for OrExpression.
+func TestOrNoAliasing(t *testing.T) {
+
+	base := Or(Equal("a", 1), Equal("b", 2), Equal("c", 3))
+
+	x := base.Or(Equal("X", 9)).(OrExpression)
+	y := base.Or(Equal("Y", 8)).(OrExpression)
+
+	require.Equal(t, "X", x[3].(Predicate).Field)
+	require.Equal(t, "Y", y[3].(Predicate).Field)
+}
+
 func TestAndEmpty(t *testing.T) {
 
 	{
