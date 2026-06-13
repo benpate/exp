@@ -179,7 +179,7 @@ func (e OrExpression) NotEmpty() bool {
 // Fields is a part of the Expression interface.
 // It returns a slice of field names that are used in this expression.
 func (e OrExpression) Fields() []string {
-	var result []string
+	result := make([]string, 0)
 
 	for _, expression := range e {
 		result = append(result, expression.Fields()...)

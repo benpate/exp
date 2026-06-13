@@ -115,6 +115,10 @@ func TestOrFields(t *testing.T) {
 
 	exp := Or(Equal("a", 1), Equal("b", 2), And(Equal("c", 3), Equal("d", 4)))
 	require.Equal(t, []string{"a", "b", "c", "d"}, exp.Fields())
+
+	// An empty OrExpression returns an empty (non-nil) slice.
+	require.Equal(t, []string{}, Or().Fields())
+	require.NotNil(t, Or().Fields())
 }
 
 // TestOrMatch confirms OR semantics: any sub-expression matching is enough, and
