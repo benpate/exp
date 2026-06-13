@@ -209,7 +209,7 @@ func (predicate Predicate) OrNotIn(name string, value any) Expression {
 }
 
 // OrInAll combines this predicate with another one (created from the arguments) into an Expression
-func (predicate Predicate) OrInAll(name string, value any) Expression {
+func (predicate Predicate) OrInAll(name string, value ...any) Expression {
 	return predicate.Or(New(name, OperatorInAll, value))
 }
 

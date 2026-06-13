@@ -76,3 +76,38 @@ func TestEmptyShortcuts(t *testing.T) {
 		require.Equal(t, []any{1, 2}, predicate.Value)
 	})
 }
+
+// TestEmptyOrShortcuts confirms that each Or* shortcut collapses an
+// EmptyExpression into a single-predicate expression with the right operator.
+func TestEmptyOrShortcuts(t *testing.T) {
+	t.Parallel()
+
+	run := func(name string, got Expression, operator string) {
+		t.Run(name, func(t *testing.T) {
+			t.Parallel()
+			predicate := requirePredicate(t, got)
+			require.Equal(t, "f", predicate.Field)
+			require.Equal(t, operator, predicate.Operator)
+			require.Equal(t, 1, predicate.Value)
+		})
+	}
+
+	empty := EmptyExpression{}
+
+	run("OrEqual", empty.OrEqual("f", 1), OperatorEqual)
+	run("OrNotEqual", empty.OrNotEqual("f", 1), OperatorNotEqual)
+	run("OrLessThan", empty.OrLessThan("f", 1), OperatorLessThan)
+	run("OrLessOrEqual", empty.OrLessOrEqual("f", 1), OperatorLessOrEqual)
+	run("OrGreaterThan", empty.OrGreaterThan("f", 1), OperatorGreaterThan)
+	run("OrGreaterOrEqual", empty.OrGreaterOrEqual("f", 1), OperatorGreaterOrEqual)
+	run("OrIn", empty.OrIn("f", 1), OperatorIn)
+	run("OrNotIn", empty.OrNotIn("f", 1), OperatorNotIn)
+
+	t.Run("OrInAll", func(t *testing.T) {
+		t.Parallel()
+		predicate := requirePredicate(t, empty.OrInAll("f", 1, 2))
+		require.Equal(t, "f", predicate.Field)
+		require.Equal(t, OperatorInAll, predicate.Operator)
+		require.Equal(t, []any{1, 2}, predicate.Value)
+	})
+}

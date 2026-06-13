@@ -97,6 +97,60 @@ func (e OrExpression) AndInAll(field string, values ...any) Expression {
 	return e.And(New(field, OperatorInAll, values))
 }
 
+// OrEqual is a part of the Expression interface.
+// It creates a new OrExpression using the Equal comparison
+func (e OrExpression) OrEqual(name string, value any) Expression {
+	return e.Or(New(name, OperatorEqual, value))
+}
+
+// OrNotEqual is a part of the Expression interface.
+// It creates a new OrExpression using the NotEqual comparison
+func (e OrExpression) OrNotEqual(name string, value any) Expression {
+	return e.Or(New(name, OperatorNotEqual, value))
+}
+
+// OrLessThan is a part of the Expression interface.
+// It creates a new OrExpression using the LessThan comparison
+func (e OrExpression) OrLessThan(name string, value any) Expression {
+	return e.Or(New(name, OperatorLessThan, value))
+}
+
+// OrLessOrEqual is a part of the Expression interface.
+// It creates a new OrExpression using the LessOrEqual comparison
+func (e OrExpression) OrLessOrEqual(name string, value any) Expression {
+	return e.Or(New(name, OperatorLessOrEqual, value))
+}
+
+// OrGreaterThan is a part of the Expression interface.
+// It creates a new OrExpression using the GreaterThan comparison
+func (e OrExpression) OrGreaterThan(name string, value any) Expression {
+	return e.Or(New(name, OperatorGreaterThan, value))
+}
+
+// OrGreaterOrEqual is a part of the Expression interface.
+// It creates a new OrExpression using the GreaterOrEqual comparison
+func (e OrExpression) OrGreaterOrEqual(name string, value any) Expression {
+	return e.Or(New(name, OperatorGreaterOrEqual, value))
+}
+
+// OrIn is a part of the Expression interface.
+// It creates a new OrExpression using the In comparison
+func (e OrExpression) OrIn(name string, value any) Expression {
+	return e.Or(New(name, OperatorIn, value))
+}
+
+// OrNotIn is a part of the Expression interface.
+// It creates a new OrExpression using the NotIn comparison
+func (e OrExpression) OrNotIn(name string, value any) Expression {
+	return e.Or(New(name, OperatorNotIn, value))
+}
+
+// OrInAll is a part of the Expression interface.
+// It creates a new OrExpression using the InAll comparison
+func (e OrExpression) OrInAll(field string, values ...any) Expression {
+	return e.Or(New(field, OperatorInAll, values))
+}
+
 // Match is a part of the Expression interface.
 // It loops through all sub-expressions and returns TRUE if any of them match
 func (e OrExpression) Match(fn MatcherFunc) bool {

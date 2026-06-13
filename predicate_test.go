@@ -129,7 +129,13 @@ func TestPredicateOrShortcuts(t *testing.T) {
 	run("OrGreaterOrEqual", base.OrGreaterOrEqual("f", 1), OperatorGreaterOrEqual)
 	run("OrIn", base.OrIn("f", 1), OperatorIn)
 	run("OrNotIn", base.OrNotIn("f", 1), OperatorNotIn)
-	run("OrInAll", base.OrInAll("f", 1), OperatorInAll)
+
+	t.Run("OrInAll", func(t *testing.T) {
+		t.Parallel()
+		or := requireOr(t, base.OrInAll("f", 1, 2), 2)
+		require.Equal(t, base, or[0]) // base predicate is preserved as the first entry
+		requireLast(t, or, "f", OperatorInAll, []any{1, 2})
+	})
 }
 
 // TestPredicateAndOrEmpty confirms that combining a predicate with an

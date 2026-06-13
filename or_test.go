@@ -206,3 +206,36 @@ func TestOrOrEmpty(t *testing.T) {
 
 	require.Equal(t, base, base.Or(Empty()))
 }
+
+// TestOrOrShortcuts confirms that each Or* shortcut flattens the new predicate
+// into the existing OrExpression.
+func TestOrOrShortcuts(t *testing.T) {
+	t.Parallel()
+
+	base := Or(Equal("base", 0))
+
+	run := func(name string, got Expression, operator string) {
+		t.Run(name, func(t *testing.T) {
+			t.Parallel()
+			or := requireOr(t, got, 2)
+			require.Equal(t, base[0], or[0]) // original predicate is preserved as the first entry
+			requireLast(t, or, "f", operator, 1)
+		})
+	}
+
+	run("OrEqual", base.OrEqual("f", 1), OperatorEqual)
+	run("OrNotEqual", base.OrNotEqual("f", 1), OperatorNotEqual)
+	run("OrLessThan", base.OrLessThan("f", 1), OperatorLessThan)
+	run("OrLessOrEqual", base.OrLessOrEqual("f", 1), OperatorLessOrEqual)
+	run("OrGreaterThan", base.OrGreaterThan("f", 1), OperatorGreaterThan)
+	run("OrGreaterOrEqual", base.OrGreaterOrEqual("f", 1), OperatorGreaterOrEqual)
+	run("OrIn", base.OrIn("f", 1), OperatorIn)
+	run("OrNotIn", base.OrNotIn("f", 1), OperatorNotIn)
+
+	t.Run("OrInAll", func(t *testing.T) {
+		t.Parallel()
+		or := requireOr(t, base.OrInAll("f", 1, 2), 2)
+		require.Equal(t, base[0], or[0]) // original predicate is preserved as the first entry
+		requireLast(t, or, "f", OperatorInAll, []any{1, 2})
+	})
+}
