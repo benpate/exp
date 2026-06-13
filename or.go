@@ -161,6 +161,7 @@ func (e OrExpression) Match(fn MatcherFunc) bool {
 		}
 	}
 
+	// An empty OrExpression matches nothing, mirroring SQL's "x IN ()" — the opposite of an empty AndExpression.
 	return false
 }
 

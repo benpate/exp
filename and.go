@@ -161,6 +161,7 @@ func (e AndExpression) Match(fn MatcherFunc) bool {
 		}
 	}
 
+	// An empty AndExpression matches everything (vacuous truth), which is what makes All() match all records.
 	return true
 }
 
