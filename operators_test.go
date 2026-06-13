@@ -46,3 +46,13 @@ func TestOperatorOk(t *testing.T) {
 	require.False(t, ok)
 	require.Equal(t, OperatorEqual, result)
 }
+
+// TestOperator confirms that the Operator wrapper discards the ok flag and
+// returns the normalized operator (or the Equal default for unknown input).
+func TestOperator(t *testing.T) {
+	t.Parallel()
+
+	require.Equal(t, OperatorGreaterThan, Operator("gt"))
+	require.Equal(t, OperatorInAll, Operator("in all"))
+	require.Equal(t, OperatorEqual, Operator("derp"))
+}

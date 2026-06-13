@@ -124,3 +124,104 @@ func TestAndExpression4(t *testing.T) {
 	assert.Equal(t, "<", exp.(AndExpression)[2].(OrExpression)[1].(Predicate).Operator)
 	assert.Equal(t, 3, exp.(AndExpression)[2].(OrExpression)[1].(Predicate).Value)
 }
+
+// TestAndState confirms the empty/not-empty reporting of an AndExpression.
+func TestAndState(t *testing.T) {
+	t.Parallel()
+
+	require.True(t, And().IsEmpty())
+	require.False(t, And().NotEmpty())
+
+	populated := And(Equal("a", 1))
+	require.False(t, populated.IsEmpty())
+	require.True(t, populated.NotEmpty())
+}
+
+// TestAndFields confirms that Fields gathers the field names of every
+// sub-expression in order.
+func TestAndFields(t *testing.T) {
+	t.Parallel()
+
+	exp := And(Equal("a", 1), Equal("b", 2), Or(Equal("c", 3), Equal("d", 4)))
+	require.Equal(t, []string{"a", "b", "c", "d"}, exp.Fields())
+}
+
+// TestAndMatch confirms AND semantics: every sub-expression must match, and
+// evaluation short-circuits on the first failure.
+func TestAndMatch(t *testing.T) {
+	t.Parallel()
+
+	t.Run("empty matches everything", func(t *testing.T) {
+		t.Parallel()
+		fn, calls := boolMatcher()
+		require.True(t, And().Match(fn))
+		require.Zero(t, *calls)
+	})
+
+	t.Run("all true matches", func(t *testing.T) {
+		t.Parallel()
+		fn, calls := boolMatcher()
+		require.True(t, And(Equal("a", true), Equal("b", true)).Match(fn))
+		require.Equal(t, 2, *calls)
+	})
+
+	t.Run("trailing false fails", func(t *testing.T) {
+		t.Parallel()
+		fn, calls := boolMatcher()
+		require.False(t, And(Equal("a", true), Equal("b", false)).Match(fn))
+		require.Equal(t, 2, *calls)
+	})
+
+	t.Run("leading false short-circuits", func(t *testing.T) {
+		t.Parallel()
+		fn, calls := boolMatcher()
+		require.False(t, And(Equal("a", false), Equal("b", true)).Match(fn))
+		require.Equal(t, 1, *calls)
+	})
+}
+
+// TestAndShortcuts confirms that each And* shortcut appends a predicate with the
+// correct operator to the AndExpression.
+func TestAndShortcuts(t *testing.T) {
+	t.Parallel()
+
+	base := And(Equal("base", 0))
+
+	run := func(name string, got Expression, operator string) {
+		t.Run(name, func(t *testing.T) {
+			t.Parallel()
+			and := requireAnd(t, got, 2)
+			require.Equal(t, base[0], and[0]) // original predicate is preserved as the first entry
+			requireLast(t, and, "f", operator, 1)
+		})
+	}
+
+	run("AndEqual", base.AndEqual("f", 1), OperatorEqual)
+	run("AndNotEqual", base.AndNotEqual("f", 1), OperatorNotEqual)
+	run("AndLessThan", base.AndLessThan("f", 1), OperatorLessThan)
+	run("AndLessOrEqual", base.AndLessOrEqual("f", 1), OperatorLessOrEqual)
+	run("AndGreaterThan", base.AndGreaterThan("f", 1), OperatorGreaterThan)
+	run("AndGreaterOrEqual", base.AndGreaterOrEqual("f", 1), OperatorGreaterOrEqual)
+	run("AndIn", base.AndIn("f", 1), OperatorIn)
+	run("AndNotIn", base.AndNotIn("f", 1), OperatorNotIn)
+
+	t.Run("AndInAll", func(t *testing.T) {
+		t.Parallel()
+		and := requireAnd(t, base.AndInAll("f", 1, 2), 2)
+		require.Equal(t, base[0], and[0]) // original predicate is preserved as the first entry
+		requireLast(t, and, "f", OperatorInAll, []any{1, 2})
+	})
+}
+
+// TestAndOr confirms that OR-ing an AndExpression produces an OrExpression, and
+// that an empty operand is ignored.
+func TestAndOr(t *testing.T) {
+	t.Parallel()
+
+	base := And(Equal("a", 1))
+
+	combined := requireOr(t, base.Or(Equal("b", 2)), 2)
+	require.Equal(t, base, combined[0])
+
+	require.Equal(t, base, base.Or(Empty()))
+}
