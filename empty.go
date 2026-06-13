@@ -4,7 +4,7 @@ package exp
 type EmptyExpression struct{}
 
 // Empty creates and returns a new EmptyExpression.
-func Empty() Expression {
+func Empty() EmptyExpression {
 	return EmptyExpression{}
 }
 
