@@ -29,12 +29,22 @@ criteria := exp.Or(
 )
 
 // Constants define standard expected operators
-data.OperatorEqual          = "="
-data.OperatorNotEqual       = "!="
-data.OperatorLessThan       = "<"
-data.OperatorLessOrEqual    = "<="
-data.OperatorGreaterThan    = ">"
-data.OperatorGreaterOrEqual = ">="
+exp.OperatorEqual          = "="
+exp.OperatorNotEqual       = "!="
+exp.OperatorLessThan       = "<"
+exp.OperatorLessOrEqual    = "<="
+exp.OperatorGreaterThan    = ">"
+exp.OperatorGreaterOrEqual = ">="
+exp.OperatorIn             = "IN"
+exp.OperatorNotIn          = "NOT IN"
+exp.OperatorInAll          = "IN ALL"
+exp.OperatorBeginsWith     = "BEGINS"
+exp.OperatorEndsWith       = "ENDS"
+exp.OperatorContains       = "CONTAINS"
+exp.OperatorContainedBy    = "CONTAINED BY"
+exp.OperatorExists         = "EXISTS"
+exp.OperatorGeoWithin      = "GEO-WITHIN"
+exp.OperatorGeoIntersects  = "GEO-INTERSECTS"
 ```
 
 ## Interfaces

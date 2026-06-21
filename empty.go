@@ -27,109 +27,109 @@ func (e EmptyExpression) Match(_ MatcherFunc) bool {
 }
 
 // AndEqual is a part of the Expression interface.
-// It returns an Equal predicate, since combining with an empty expression has no effect.
+// It returns an Equal predicate, since there is no existing expression to combine with.
 func (e EmptyExpression) AndEqual(name string, value any) Expression {
 	return New(name, OperatorEqual, value)
 }
 
 // AndNotEqual is a part of the Expression interface.
-// It returns a NotEqual predicate, since combining with an empty expression has no effect.
+// It returns a NotEqual predicate, since there is no existing expression to combine with.
 func (e EmptyExpression) AndNotEqual(name string, value any) Expression {
 	return New(name, OperatorNotEqual, value)
 }
 
 // AndLessThan is a part of the Expression interface.
-// It returns a LessThan predicate, since combining with an empty expression has no effect.
+// It returns a LessThan predicate, since there is no existing expression to combine with.
 func (e EmptyExpression) AndLessThan(name string, value any) Expression {
 	return New(name, OperatorLessThan, value)
 }
 
 // AndLessOrEqual is a part of the Expression interface.
-// It returns a LessOrEqual predicate, since combining with an empty expression has no effect.
+// It returns a LessOrEqual predicate, since there is no existing expression to combine with.
 func (e EmptyExpression) AndLessOrEqual(name string, value any) Expression {
 	return New(name, OperatorLessOrEqual, value)
 }
 
 // AndGreaterThan is a part of the Expression interface.
-// It returns a GreaterThan predicate, since combining with an empty expression has no effect.
+// It returns a GreaterThan predicate, since there is no existing expression to combine with.
 func (e EmptyExpression) AndGreaterThan(name string, value any) Expression {
 	return New(name, OperatorGreaterThan, value)
 }
 
 // AndGreaterOrEqual is a part of the Expression interface.
-// It returns a GreaterOrEqual predicate, since combining with an empty expression has no effect.
+// It returns a GreaterOrEqual predicate, since there is no existing expression to combine with.
 func (e EmptyExpression) AndGreaterOrEqual(name string, value any) Expression {
 	return New(name, OperatorGreaterOrEqual, value)
 }
 
 // AndIn is a part of the Expression interface.
-// It returns an In predicate, since combining with an empty expression has no effect.
+// It returns an In predicate, since there is no existing expression to combine with.
 func (e EmptyExpression) AndIn(name string, value any) Expression {
 	return New(name, OperatorIn, value)
 }
 
 // AndNotIn is a part of the Expression interface.
-// It returns a NotIn predicate, since combining with an empty expression has no effect.
+// It returns a NotIn predicate, since there is no existing expression to combine with.
 func (e EmptyExpression) AndNotIn(name string, value any) Expression {
 	return New(name, OperatorNotIn, value)
 }
 
 // AndInAll is a part of the Expression interface.
-// It returns an InAll predicate, since combining with an empty expression has no effect.
+// It returns an InAll predicate, since there is no existing expression to combine with.
 func (e EmptyExpression) AndInAll(name string, value ...any) Expression {
 	return New(name, OperatorInAll, value)
 }
 
 // OrEqual is a part of the Expression interface.
-// It returns an Equal predicate, since combining with an empty expression has no effect.
+// It returns an Equal predicate, since there is no existing expression to combine with.
 func (e EmptyExpression) OrEqual(name string, value any) Expression {
 	return New(name, OperatorEqual, value)
 }
 
 // OrNotEqual is a part of the Expression interface.
-// It returns a NotEqual predicate, since combining with an empty expression has no effect.
+// It returns a NotEqual predicate, since there is no existing expression to combine with.
 func (e EmptyExpression) OrNotEqual(name string, value any) Expression {
 	return New(name, OperatorNotEqual, value)
 }
 
 // OrLessThan is a part of the Expression interface.
-// It returns a LessThan predicate, since combining with an empty expression has no effect.
+// It returns a LessThan predicate, since there is no existing expression to combine with.
 func (e EmptyExpression) OrLessThan(name string, value any) Expression {
 	return New(name, OperatorLessThan, value)
 }
 
 // OrLessOrEqual is a part of the Expression interface.
-// It returns a LessOrEqual predicate, since combining with an empty expression has no effect.
+// It returns a LessOrEqual predicate, since there is no existing expression to combine with.
 func (e EmptyExpression) OrLessOrEqual(name string, value any) Expression {
 	return New(name, OperatorLessOrEqual, value)
 }
 
 // OrGreaterThan is a part of the Expression interface.
-// It returns a GreaterThan predicate, since combining with an empty expression has no effect.
+// It returns a GreaterThan predicate, since there is no existing expression to combine with.
 func (e EmptyExpression) OrGreaterThan(name string, value any) Expression {
 	return New(name, OperatorGreaterThan, value)
 }
 
 // OrGreaterOrEqual is a part of the Expression interface.
-// It returns a GreaterOrEqual predicate, since combining with an empty expression has no effect.
+// It returns a GreaterOrEqual predicate, since there is no existing expression to combine with.
 func (e EmptyExpression) OrGreaterOrEqual(name string, value any) Expression {
 	return New(name, OperatorGreaterOrEqual, value)
 }
 
 // OrIn is a part of the Expression interface.
-// It returns an In predicate, since combining with an empty expression has no effect.
+// It returns an In predicate, since there is no existing expression to combine with.
 func (e EmptyExpression) OrIn(name string, value any) Expression {
 	return New(name, OperatorIn, value)
 }
 
 // OrNotIn is a part of the Expression interface.
-// It returns a NotIn predicate, since combining with an empty expression has no effect.
+// It returns a NotIn predicate, since there is no existing expression to combine with.
 func (e EmptyExpression) OrNotIn(name string, value any) Expression {
 	return New(name, OperatorNotIn, value)
 }
 
 // OrInAll is a part of the Expression interface.
-// It returns an InAll predicate, since combining with an empty expression has no effect.
+// It returns an InAll predicate, since there is no existing expression to combine with.
 func (e EmptyExpression) OrInAll(name string, value ...any) Expression {
 	return New(name, OperatorInAll, value)
 }
