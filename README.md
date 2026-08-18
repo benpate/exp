@@ -1,6 +1,6 @@
 # Expressions 🤩
 
-[![GoDoc](https://img.shields.io/badge/go-documentation-blue.svg?style=flat-square)](http://pkg.go.dev/github.com/benpate/exp)
+[![Go Reference](https://pkg.go.dev/badge/github.com/benpate/exp.svg)](https://pkg.go.dev/github.com/benpate/exp)
 [![Version](https://img.shields.io/github/v/release/benpate/exp?include_prereleases&style=flat-square&color=brightgreen)](https://github.com/benpate/exp/releases)
 [![Build Status](https://img.shields.io/github/actions/workflow/status/benpate/exp/go.yml?branch=main)](https://github.com/benpate/exp/actions/workflows/go.yml)
 [![Go Report Card](https://goreportcard.com/badge/github.com/benpate/exp?style=flat-square)](https://goreportcard.com/report/github.com/benpate/exp)
@@ -8,9 +8,9 @@
 
 ## Easy Expression Builder for Golang
 
-Every database has its own query language, so this library provides in intermediate format that should be easy to convert into whatever specific language you need to use.  
+Every database has its own query language, so this library provides an intermediate format that should be easy to convert into whatever specific language you need to use.
 
-The expression library only represents the structure of the logical expression, and does not include implementations for any data sources.  Those should be implemented in each individual data source adapter library.
+The expression library only represents the structure of the logical expression, and does not include implementations for any data sources. Those should be implemented in each individual data source adapter library.
 
 ```go
 
@@ -51,16 +51,16 @@ exp.OperatorGeoIntersects  = "GEO-INTERSECTS"
 
 This is accomplished with three very similar data types that all implement the same `Expression` interface.
 
-**`Predicate`** represents a single predicate/comparison.  Using `.And()` and `.Or()` will return the corresponding `AndExpression` or `OrExpression` object
+**`Predicate`** represents a single predicate/comparison. Using `.And()` and `.Or()` will return the corresponding `AndExpression` or `OrExpression` object
 
-**`AndExpression`** represents multiple predicates, all chained together with AND logic.  Only supports the `.And()` method for additional predicates
+**`AndExpression`** represents multiple predicates, all chained together with AND logic. Only supports the `.And()` method for additional predicates
 
-**`OrExpression`** represents multiple predicates, all chained together with OR logic.  Only supports the `.Or()` method for additional predicates.
+**`OrExpression`** represents multiple predicates, all chained together with OR logic. Only supports the `.Or()` method for additional predicates.
 
 ## Manually Walking the Logic Tree
 
-Each of the three interfaces above implements a `.Match()` function that can be used by external programs to see if a dataset matches this exp.  You must pass in a `MatcherFunc` that accepts a predicate and returns `TRUE` if that predicate matches the dataaset.  `AndExpression` and `OrExpression` objects will call this function repeatedly for each element in their logic tree, and return a final boolean value for the entire logic structure.
+Each of the three interfaces above implements a `.Match()` function that can be used by external programs to see if a dataset matches this expression. You must pass in a `MatcherFunc` that accepts a predicate and returns `TRUE` if that predicate matches the dataset. `AndExpression` and `OrExpression` objects will call this function repeatedly for each element in their logic tree, and return a final boolean value for the entire logic structure.
 
 ## Pull Requests Welcome
 
-This library is a work in progress, and will benefit from your experience reports, use cases, and contributions.  If you have an idea for making this library better, send in a pull request.  We're all in this together! 🤩
+This library is a work in progress, and will benefit from your experience reports, use cases, and contributions. If you have an idea for making this library better, send in a pull request. We're all in this together! 🤩
