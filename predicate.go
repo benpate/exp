@@ -2,9 +2,15 @@ package exp
 
 // Predicate represents a single true/false comparison
 type Predicate struct {
-	Field    string
+
+	// Field is the name of the value being compared, in the data source's own naming scheme
+	Field string
+
+	// Operator is one of the Operator* constants, naming the comparison to perform
 	Operator string
-	Value    any
+
+	// Value is the value that the Field is compared against
+	Value any
 }
 
 // New returns a fully populated Predicate
@@ -104,8 +110,14 @@ func GeoIntersects(field string, geoJSONer GeoJSONer) Predicate {
 // And combines this predicate with another pre-existing expression into a new And expression
 func (predicate Predicate) And(exp Expression) Expression {
 
-	// Skip EmptyExpressions
-	if _, ok := exp.(EmptyExpression); ok {
+	// Absorb a nil Expression, which would otherwise panic later in Match() or
+	// Fields().  See AndExpression.and() for why this is not a shared helper.
+	if exp == nil {
+		return predicate
+	}
+
+	// Skip EmptyExpressions, which add no constraint of their own.
+	if _, isEmpty := exp.(EmptyExpression); isEmpty {
 		return predicate
 	}
 
@@ -160,8 +172,14 @@ func (predicate Predicate) AndInAll(name string, value ...any) Expression {
 // Or combines this predicate with another pre-existing expression into a new Or expression
 func (predicate Predicate) Or(exp Expression) Expression {
 
-	// Skip EmptyExpressions
-	if _, ok := exp.(EmptyExpression); ok {
+	// Absorb a nil Expression, which would otherwise panic later in Match() or
+	// Fields().  See AndExpression.and() for why this is not a shared helper.
+	if exp == nil {
+		return predicate
+	}
+
+	// Skip EmptyExpressions, which add no constraint of their own.
+	if _, isEmpty := exp.(EmptyExpression); isEmpty {
 		return predicate
 	}
 

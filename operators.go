@@ -56,11 +56,13 @@ func Operator(value string) string {
 	return result
 }
 
-// OperatorOk tries to convert non-standard values into standard operators.
-// If a match is found, then it returns the standardized value and TRUE.
-// If a match is not found, then the default EQUAL is returned along with a FALSE.
+// OperatorOk converts a non-standard value into a standard operator constant,
+// returning the standardized operator and TRUE when the value is recognized.
 func OperatorOk(value string) (string, bool) {
 
+	// Matching is case-insensitive.  The HTML entity spellings ("&gt;", "&le;")
+	// are accepted so that operators survive a trip through a URL or an HTML
+	// attribute without being mangled.
 	value = strings.ToUpper(value)
 
 	switch value {
@@ -114,6 +116,9 @@ func OperatorOk(value string) (string, bool) {
 		return OperatorGeoIntersects, true
 
 	default:
+
+		// RULE: An unrecognized value falls back to EQUAL, so that a caller who
+		// ignores the boolean still receives a usable operator.
 		return OperatorEqual, false
 	}
 }

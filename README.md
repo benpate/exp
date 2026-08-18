@@ -53,9 +53,11 @@ This is accomplished with three very similar data types that all implement the s
 
 **`Predicate`** represents a single predicate/comparison. Using `.And()` and `.Or()` will return the corresponding `AndExpression` or `OrExpression` object
 
-**`AndExpression`** represents multiple predicates, all chained together with AND logic. Only supports the `.And()` method for additional predicates
+**`AndExpression`** represents multiple predicates, all chained together with AND logic. Additional predicates added with `.And()` are appended to the same expression; `.Or()` nests it inside a new `OrExpression`.
 
-**`OrExpression`** represents multiple predicates, all chained together with OR logic. Only supports the `.Or()` method for additional predicates.
+**`OrExpression`** represents multiple predicates, all chained together with OR logic. Additional predicates added with `.Or()` are appended to the same expression; `.And()` nests it inside a new `AndExpression`.
+
+**`EmptyExpression`** represents "no constraint at all". It matches everything, and is absorbed whenever it is combined with another expression. A `nil` `Expression` is treated the same way, so a missing constraint can never become a `nil` that panics later during `.Match()`.
 
 ## Manually Walking the Logic Tree
 

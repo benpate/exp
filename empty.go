@@ -9,14 +9,30 @@ func Empty() EmptyExpression {
 }
 
 // And is a part of the Expression interface.
-// It returns the other expression since combining with an empty expression has no effect.
+// It returns the other expression, which absorbs this empty one.
 func (e EmptyExpression) And(exp Expression) Expression {
+
+	// Returning the receiver keeps a nil Expression from escaping into the
+	// caller's tree, where it would panic on the next Match() or Fields().
+	// See AndExpression.and() for why this is not a shared helper.
+	if exp == nil {
+		return e
+	}
+
 	return exp
 }
 
 // Or is a part of the Expression interface.
-// It returns the other expression since combining with an empty expression has no effect.
+// It returns the other expression, which absorbs this empty one.
 func (e EmptyExpression) Or(exp Expression) Expression {
+
+	// Returning the receiver keeps a nil Expression from escaping into the
+	// caller's tree, where it would panic on the next Match() or Fields().
+	// See AndExpression.and() for why this is not a shared helper.
+	if exp == nil {
+		return e
+	}
+
 	return exp
 }
 
