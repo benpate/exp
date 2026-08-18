@@ -14,7 +14,7 @@ func (e EmptyExpression) And(exp Expression) Expression {
 
 	// Returning the receiver keeps a nil Expression from escaping into the
 	// caller's tree, where it would panic on the next Match() or Fields().
-	// See AndExpression.and() for why this is not a shared helper.
+	// See AndExpression.And() for why this is not a shared helper.
 	if exp == nil {
 		return e
 	}
@@ -28,7 +28,7 @@ func (e EmptyExpression) Or(exp Expression) Expression {
 
 	// Returning the receiver keeps a nil Expression from escaping into the
 	// caller's tree, where it would panic on the next Match() or Fields().
-	// See AndExpression.and() for why this is not a shared helper.
+	// See AndExpression.And() for why this is not a shared helper.
 	if exp == nil {
 		return e
 	}

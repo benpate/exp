@@ -6,6 +6,8 @@ type AndExpression []Expression
 // And combines one or more expression parameters into an AndExpression
 func And(expressions ...Expression) AndExpression {
 
+	// RULE: Begin with an empty (not nil) AndExpression, so that And() with no
+	// arguments still marshals as an empty JSON list instead of `null`.
 	var result Expression
 	result = make(AndExpression, 0)
 
@@ -20,25 +22,50 @@ func And(expressions ...Expression) AndExpression {
 // It combines another expression into a new AndExpression
 func (e AndExpression) And(exp Expression) Expression {
 
-	// Cap the receiver to its length so append always allocates a new backing
-	// array, preventing two derived expressions from clobbering shared capacity.
-	switch value := exp.(type) {
-	case EmptyExpression:
+	// RULE: Absorb a nil Expression instead of storing it.  A nil that is allowed
+	// into the tree does not fail at the call site that produced it -- it panics
+	// much later, inside Match() or Fields(), where the cause is invisible.
+	//
+	// The comparison is repeated inline at every combining site, rather than
+	// factored into a helper, because nilaway cannot see a nil check through a
+	// function call.
+	if exp == nil {
 		return e
-	case AndExpression:
-		return append(e[:len(e):len(e)], value...)
-	default:
-		return append(e[:len(e):len(e)], value)
 	}
+
+	// Skip EmptyExpressions, which add no constraint of their own.
+	if _, isEmpty := exp.(EmptyExpression); isEmpty {
+		return e
+	}
+
+	// RULE: Both appends below cap the receiver to its own length, so that append
+	// always allocates a new backing array.  Without the cap, two expressions
+	// derived from the same parent would share spare capacity and clobber each
+	// other.
+
+	// Flatten nested AndExpressions, since AND is associative.
+	if value, isAnd := exp.(AndExpression); isAnd {
+		return append(e[:len(e):len(e)], value...)
+	}
+
+	return append(e[:len(e):len(e)], exp)
 }
 
 // Or is a part of the Expression interface.
 // It combines this AndExpression with another expression into a new OrExpression
 func (e AndExpression) Or(exp Expression) Expression {
 
-	if _, ok := exp.(EmptyExpression); ok {
+	// Absorb a nil Expression, which would otherwise panic later in Match() or
+	// Fields().  See AndExpression.And() for why this is not a shared helper.
+	if exp == nil {
 		return e
 	}
+
+	// Skip EmptyExpressions, which add no constraint of their own.
+	if _, isEmpty := exp.(EmptyExpression); isEmpty {
+		return e
+	}
+
 	return Or(e, exp)
 }
 

@@ -6,6 +6,8 @@ type OrExpression []Expression
 // Or combines one or more expression parameters into an OrExpression
 func Or(expressions ...Expression) OrExpression {
 
+	// RULE: Begin with an empty (not nil) OrExpression, so that Or() with no
+	// arguments still marshals as an empty JSON list instead of `null`.
 	var result Expression
 	result = make(OrExpression, 0)
 
@@ -20,23 +22,42 @@ func Or(expressions ...Expression) OrExpression {
 // It combines another expression into a new OrExpression
 func (e OrExpression) Or(exp Expression) Expression {
 
-	// Cap the receiver to its length so append always allocates a new backing
-	// array, preventing two derived expressions from clobbering shared capacity.
-	switch value := exp.(type) {
-	case EmptyExpression:
+	// Absorb a nil Expression, which would otherwise panic later in Match() or
+	// Fields().  See AndExpression.And() for why this is not a shared helper.
+	if exp == nil {
 		return e
-	case OrExpression:
-		return append(e[:len(e):len(e)], value...)
-	default:
-		return append(e[:len(e):len(e)], value)
 	}
+
+	// Skip EmptyExpressions, which add no constraint of their own.
+	if _, isEmpty := exp.(EmptyExpression); isEmpty {
+		return e
+	}
+
+	// RULE: Both appends below cap the receiver to its own length, so that append
+	// always allocates a new backing array.  Without the cap, two expressions
+	// derived from the same parent would share spare capacity and clobber each
+	// other.
+
+	// Flatten nested OrExpressions, since OR is associative.
+	if value, isOr := exp.(OrExpression); isOr {
+		return append(e[:len(e):len(e)], value...)
+	}
+
+	return append(e[:len(e):len(e)], exp)
 }
 
 // And is a part of the Expression interface
 // It combines this OrExpression with another expression into a new AndExpression
 func (e OrExpression) And(exp Expression) Expression {
 
-	if _, ok := exp.(EmptyExpression); ok {
+	// Absorb a nil Expression, which would otherwise panic later in Match() or
+	// Fields().  See AndExpression.And() for why this is not a shared helper.
+	if exp == nil {
+		return e
+	}
+
+	// Skip EmptyExpressions, which add no constraint of their own.
+	if _, isEmpty := exp.(EmptyExpression); isEmpty {
 		return e
 	}
 

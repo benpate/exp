@@ -111,7 +111,7 @@ func GeoIntersects(field string, geoJSONer GeoJSONer) Predicate {
 func (predicate Predicate) And(exp Expression) Expression {
 
 	// Absorb a nil Expression, which would otherwise panic later in Match() or
-	// Fields().  See AndExpression.and() for why this is not a shared helper.
+	// Fields().  See AndExpression.And() for why this is not a shared helper.
 	if exp == nil {
 		return predicate
 	}
@@ -173,7 +173,7 @@ func (predicate Predicate) AndInAll(name string, value ...any) Expression {
 func (predicate Predicate) Or(exp Expression) Expression {
 
 	// Absorb a nil Expression, which would otherwise panic later in Match() or
-	// Fields().  See AndExpression.and() for why this is not a shared helper.
+	// Fields().  See AndExpression.And() for why this is not a shared helper.
 	if exp == nil {
 		return predicate
 	}
